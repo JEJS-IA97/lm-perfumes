@@ -1,0 +1,15 @@
+{
+  "name": "lm-perfumes",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "pnpm --filter @lm/web dev",
+    "build": "pnpm --filter @lm/web build",
+    "test": "pnpm --filter @lm/web test",
+    "typecheck": "pnpm --filter @lm/web typecheck"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
