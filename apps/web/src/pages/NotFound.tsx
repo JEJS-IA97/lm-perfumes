@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom'
-import { useTheme } from '../lib/useTheme'
 
 export function NotFound() {
-  useTheme('light')
   return (
     <section className="container section">
       <h1 className="display">No encontramos esta página</h1>

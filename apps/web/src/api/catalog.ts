@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { supabase } from '../lib/supabase'
-import { demoProducts, demoSettings } from '../lib/demo'
-import type { Gender, Product, Settings } from '../lib/types'
+import { demoBanners, demoProducts, demoSettings } from '../lib/demo'
+import type { Banner, Gender, Product, Settings } from '../lib/types'
 
 async function fetchProducts(gender?: Gender): Promise<Product[]> {
   if (!supabase) return demoProducts.filter((p) => !gender || p.gender === gender || p.gender === 'unisex')
@@ -33,6 +33,19 @@ export const useSettings = () =>
       if (!supabase) return demoSettings
       const { data, error } = await supabase.from('settings').select('exchange_rate, whatsapp_number').eq('id', 1).single()
       if (error) throw error
+      return data
+    },
+    staleTime: 5 * 60_000,
+  })
+
+export const useBanners = () =>
+  useQuery({
+    queryKey: ['banners'],
+    queryFn: async (): Promise<Banner[]> => {
+      if (!supabase) return demoBanners
+      const { data, error } = await supabase.from('banners').select('*').eq('active', true).order('sort_order')
+      // Si la migración 0002 aún no se ejecutó, la tienda sigue funcionando sin banners.
+      if (error) return []
       return data
     },
     staleTime: 5 * 60_000,

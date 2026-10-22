@@ -1,57 +1,60 @@
-/* Tokens de marca. Las páginas de caballeros activan [data-theme='dark']. */
+/* Tokens. Tema global claro/oscuro (html[data-theme], según el dispositivo o el botón del header).
+   Damas y Caballeros añaden su paleta con [data-section] en ambos modos. */
 :root {
-  --brand: #159bd3;          /* azul del logo: decoración y textos grandes */
-  --brand-strong: #0b6e9c;   /* azul para texto pequeño y botones sobre blanco (AA) */
-  --graphite: #3d3d3f;       /* gris del logo */
+  --brand: #159bd3;
+  --brand-strong: #0b6e9c;
+  --graphite: #3d3d3f;
+  --rose-50: #fcf6f5; --rose-100: #f4e8e8; --rose-300: #d9b4ba; --rose-600: #8b4a5a; --rose-800: #543a40;
+  --sky-100: #e3f1f8; --sky-600: #0b6e9c; --sky-800: #0b4a6b;
+  --navy-50: #f3f6f8; --navy-100: #e6edf2; --navy-300: #9fb7c8; --navy-600: #496a82; --navy-800: #263b4a;
 
-  --bg: #ffffff;
-  --surface: #f4f6f8;
-  --surface-2: #e9edf1;
+  --bg: #fcfbf9;
+  --surface: #f5f2ef;
+  --surface-2: #ece7e2;
+  --plate: #f1ede9;           /* fondo de fotos de producto */
   --text: #17181b;
   --text-muted: #5b6068;
-  --line: #dfe3e8;
+  --line: #e2ded9;
   --accent: var(--brand-strong);
   --on-accent: #ffffff;
+  --tint: var(--surface);
+  --tint-ink: var(--text);
   --danger: #b42318;
   --success: #1f7a4d;
-
-  --font-display: 'Bodoni Moda', 'Didot', Georgia, serif;
+  --font-display: 'Playfair Display', Georgia, serif;
   --font-ui: 'Manrope', system-ui, sans-serif;
-
-  --radius: 6px;
-  --gutter: clamp(16px, 5vw, 72px);
-  --max: 1320px;
+  --radius: 10px;
+  --gutter: clamp(18px, 3vw, 56px);
+  --section-gap: clamp(40px, 5vw, 64px);   /* espacio entre secciones */
+  --max: 1720px;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --shadow: 0 12px 32px -12px rgb(16 24 40 / 0.18);
-
+  --shadow: 0 12px 32px -12px rgb(16 24 40 / 0.14);
   color-scheme: light;
 }
-
 [data-theme='dark'] {
-  --bg: #0f1012;
-  --surface: #18191c;
-  --surface-2: #232428;
-  --text: #eef0f2;
-  --text-muted: #a3a8b0;
-  --line: #2c2e33;
+  --bg: #121113;
+  --surface: #1b1a1d;
+  --surface-2: #26242a;
+  --plate: #e9e5e2;
+  --text: #f1eeeb;
+  --text-muted: #aaa49f;
+  --line: #2f2c31;
   --accent: var(--brand);
   --on-accent: #06141c;
   --shadow: 0 16px 40px -16px rgb(0 0 0 / 0.6);
   color-scheme: dark;
 }
 
+[data-section='damas'] { --accent: var(--rose-600); --on-accent: #fff; --tint: var(--rose-100); --tint-ink: var(--rose-800); --plate: var(--rose-100); }
+[data-section='caballeros'] { --accent: var(--navy-800); --on-accent: #fff; --tint: var(--navy-100); --tint-ink: var(--navy-800); --plate: var(--navy-100); }
+[data-section='unisex'] { --accent: var(--sky-600); --on-accent: #fff; --tint: var(--sky-100); --tint-ink: var(--sky-800); --plate: var(--sky-100); }
+[data-theme='dark'] [data-section='unisex'] { --accent: #6cc4ea; --on-accent: #06141c; --tint: #10232d; --tint-ink: #cde8f5; --plate: #dfeef6; }
+[data-theme='dark'] [data-section='damas'] { --accent: #e7b3bf; --on-accent: #2a1519; --tint: #2a1e22; --tint-ink: #f3d6dc; --plate: #f1e2e3; }
+[data-theme='dark'] [data-section='caballeros'] { --accent: #8db5d1; --on-accent: #0d1a23; --tint: #172129; --tint-ink: #d4e3ee; --plate: #e1e9ef; }
+
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body {
-  margin: 0;
-  min-width: 320px;
-  font-family: var(--font-ui);
-  font-size: 16px;
-  line-height: 1.55;
-  color: var(--text);
-  background: var(--bg);
-  -webkit-font-smoothing: antialiased;
-}
+body { transition: background-color 0.3s, color 0.3s; margin: 0; min-width: 320px; font-family: var(--font-ui); font-size: 16px; line-height: 1.55; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button, input, select, textarea { font: inherit; color: inherit; }
@@ -60,19 +63,11 @@ button { cursor: pointer; }
 :focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 2px; }
 h1, h2, h3 { text-wrap: balance; }
 .num { font-variant-numeric: tabular-nums; }
-
 .container { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
-.display { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.05; }
+.display { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.015em; line-height: 1.08; }
 .muted { color: var(--text-muted); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-
-/* Botones */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-  min-height: 48px; padding: 0 22px; border: 1px solid transparent; border-radius: var(--radius);
-  font-size: 15px; font-weight: 600; letter-spacing: 0.01em;
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s var(--ease-out);
-}
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; border: 1px solid transparent; border-radius: var(--radius); font-size: 15px; font-weight: 600; letter-spacing: 0.01em; transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s var(--ease-out); }
 .btn:active { transform: scale(0.98); }
 .btn:disabled { opacity: 0.55; cursor: not-allowed; }
 .btn-primary { background: var(--accent); color: var(--on-accent); }
@@ -82,24 +77,14 @@ h1, h2, h3 { text-wrap: balance; }
 .btn-block { width: 100%; }
 .link { font-weight: 600; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 .link:hover { color: var(--accent); }
-
-/* Formularios */
 .field { display: grid; gap: 6px; }
 .field > span { font-size: 14px; font-weight: 600; }
 .field small { font-size: 13px; color: var(--text-muted); }
-.input {
-  width: 100%; min-height: 48px; padding: 10px 14px;
-  border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg);
-  transition: border-color 0.15s;
-}
+.input { width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); transition: border-color 0.15s; }
 .input:hover { border-color: var(--text-muted); }
 .input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
 textarea.input { min-height: 96px; resize: vertical; }
 .alert { padding: 12px 14px; border-radius: var(--radius); font-size: 14px; background: color-mix(in srgb, var(--danger) 10%, var(--bg)); color: var(--danger); }
-
 .skeleton { background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 50%, var(--surface) 100%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: var(--radius); }
 @keyframes shimmer { to { background-position: -200% 0; } }
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }

@@ -3,8 +3,9 @@
 @media (min-width: 1100px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
 .card { display: flex; flex-direction: column; min-width: 0; }
-.card__media { position: relative; display: block; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius); background: var(--surface); }
-.card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease-out); }
+.card__media { position: relative; display: block; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius); background: var(--plate); }
+/* multiply funde el fondo blanco de las fotos con el color de la sección */
+.card__media img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; transition: transform 0.6s var(--ease-out); }
 .card:hover .card__media img { transform: scale(1.04); }
 .card__badge {
   position: absolute; top: 10px; left: 10px; padding: 4px 10px; border-radius: 999px;
@@ -20,6 +21,7 @@
   flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
   border: 1px solid var(--line); background: var(--bg); transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
+.card__brand { color: var(--accent) !important; }
 .card__add:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .card__add:disabled { opacity: 0.4; cursor: not-allowed; }
 

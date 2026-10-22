@@ -3,16 +3,13 @@ import { ArrowRight } from 'lucide-react'
 import { Bottle } from './Bottle'
 import './hero.css'
 
-/** Dos mundos en un escenario: Damas (claro) a la izquierda, Caballeros (oscuro) a la derecha. */
 export function Hero() {
   return (
     <section className="hero2 container" aria-labelledby="hero-title">
       <div className="hero2__stage">
         <div className="hero2__copy">
           <h1 id="hero-title" className="display">Fragancias que se quedan contigo.</h1>
-          <p>Paga en dólares o bolívares. Tu pedido llega directo a nuestro WhatsApp.</p>
         </div>
-        <p className="hero2__aside">Sin crear cuenta.<br />Retiro, delivery o envío nacional.</p>
 
         <p className="hero2__word display" aria-hidden="true">Esencia</p>
         <Bottle className="hero2__bottle" />

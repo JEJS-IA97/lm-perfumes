@@ -70,3 +70,7 @@
 .order__data dd { margin: 0; }
 .order__actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .order__actions .input { width: auto; }
+
+.admin-list__row--banner { grid-template-columns: 1fr auto auto auto; }
+.admin-list__row--banner span:first-child { display: grid; min-width: 0; }
+@media (max-width: 560px) { .admin-list__row--banner { grid-template-columns: 1fr auto; } }

@@ -4,7 +4,6 @@ import { ChevronLeft, Minus, Plus } from 'lucide-react'
 import { useProduct } from '../api/catalog'
 import { Price } from '../components/product/Price'
 import { imageUrl } from '../lib/supabase'
-import { useTheme } from '../lib/useTheme'
 import { useCart } from '../store/cart'
 import { NotFound } from './NotFound'
 import './pages.css'
@@ -15,19 +14,19 @@ export function ProductDetail() {
   const add = useCart((s) => s.add)
   const [active, setActive] = useState(0)
   const [qty, setQty] = useState(1)
-  useTheme(product?.gender === 'caballeros' ? 'dark' : 'light')
 
   if (isPending) return <div className="container pdp"><div className="skeleton pdp__main" /></div>
   if (isError) return <div className="container section"><p className="alert" role="alert">No pudimos cargar este producto. Recarga la página.</p></div>
   if (!product) return <NotFound />
 
   const images = product.images.length ? product.images : [undefined]
-  const back = product.gender === 'caballeros' ? '/caballeros' : '/damas'
+  const back = `/${product.gender}`
+  const backLabel = { damas: 'Damas', caballeros: 'Caballeros', unisex: 'Unisex' }[product.gender]
   const notes = [['Salida', product.notes_top], ['Corazón', product.notes_heart], ['Fondo', product.notes_base]].filter(([, v]) => v)
 
   return (
-    <div className="container pdp">
-      <Link to={back} className="pdp__back muted"><ChevronLeft size={18} /> {product.gender === 'caballeros' ? 'Caballeros' : 'Damas'}</Link>
+    <div className="container pdp" data-section={product.gender}>
+      <Link to={back} className="pdp__back muted"><ChevronLeft size={18} /> {backLabel}</Link>
       <div className="pdp__grid">
         <div className="pdp__gallery">
           <img className="pdp__main" src={imageUrl(images[active])} alt={product.name} width="900" height="1125" />

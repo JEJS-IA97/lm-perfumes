@@ -33,10 +33,16 @@
   .site-nav { order: 3; width: 100%; margin: 0 -14px; justify-content: flex-start; }
 }
 
-.site-footer { margin-top: 96px; padding: 56px 0 28px; border-top: 1px solid var(--line); background: var(--surface); }
-.site-footer__grid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; }
-.site-footer__brand { font-size: 28px; margin: 0 0 8px; }
-.site-footer__nav { display: flex; flex-wrap: wrap; gap: 8px 28px; font-weight: 600; }
-.site-footer__nav a { min-height: 44px; display: inline-flex; align-items: center; }
-.site-footer__nav a:hover { color: var(--accent); }
-.site-footer__legal { margin-top: 32px; font-size: 13px; }
+/* Pie oscuro en ambos modos, como cierre editorial de la página. */
+.site-footer { margin-top: calc(var(--section-gap) * 1.5); padding: clamp(48px, 6vw, 80px) 0 24px; background: #141316; color: #c9c4bf; }
+[data-theme='dark'] .site-footer { background: #0b0a0c; border-top: 1px solid var(--line); }
+.site-footer__grid { display: grid; gap: 36px; }
+@media (min-width: 768px) { .site-footer__grid { grid-template-columns: 2fr 1fr 1.3fr 1fr; } }
+.site-footer__about img { width: 56px; height: 56px; background: #fff; border-radius: 10px; padding: 4px; }
+.site-footer__brand { margin: 18px 0 6px; font-size: 28px; color: #fff; }
+.site-footer__about p:last-child { margin: 0; max-width: 34ch; }
+.site-footer__col { display: grid; align-content: start; gap: 4px; }
+.site-footer__col h2 { margin: 0 0 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; }
+.site-footer__col a, .site-footer__col span { min-height: 36px; display: inline-flex; align-items: center; }
+.site-footer__col a:hover { color: var(--brand); }
+.site-footer__legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 48px; padding-top: 20px; border-top: 1px solid #2a282c; font-size: 13px; color: #8f8a85; }

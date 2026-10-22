@@ -18,6 +18,21 @@ export interface Product {
   available: boolean
   featured: boolean
   sort_order: number
+  created_at: string
+}
+
+export type BannerTone = 'damas' | 'caballeros' | 'marca'
+
+export interface Banner {
+  id: string
+  title: string
+  subtitle: string
+  cta_label: string
+  cta_url: string
+  image: string
+  tone: BannerTone
+  active: boolean
+  sort_order: number
 }
 
 export interface Settings {

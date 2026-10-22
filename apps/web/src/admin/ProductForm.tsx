@@ -6,7 +6,7 @@ import { imageUrl, supabase } from '../lib/supabase'
 import type { Product } from '../lib/types'
 import { deleteProductImage, uploadProductImage } from './image'
 
-const empty: Omit<Product, 'id'> = {
+const empty: Omit<Product, 'id' | 'created_at'> = {
   slug: '', name: '', brand: '', gender: 'damas', concentration: 'Eau de Parfum', volume_ml: 100,
   description: '', notes_top: '', notes_heart: '', notes_base: '',
   price_usd: 0, compare_at_usd: null, images: [], available: true, featured: false, sort_order: 0,

@@ -11,7 +11,7 @@ export function ProductCard({ product }: { product: Product }) {
   const meta = [product.concentration, product.volume_ml && `${product.volume_ml} ml`].filter(Boolean).join(' · ')
 
   return (
-    <article className="card">
+    <article className="card" data-section={product.gender}>
       <Link to={`/producto/${product.slug}`} className="card__media">
         <img src={imageUrl(product.images[0])} alt={product.name} loading="lazy" width="600" height="750" />
         {!product.available && <span className="card__badge">Agotado</span>}

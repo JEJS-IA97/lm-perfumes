@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { useProducts } from '../api/catalog'
 import { ProductGrid } from '../components/product/ProductGrid'
 import type { Gender, Product } from '../lib/types'
-import { useTheme } from '../lib/useTheme'
 import './pages.css'
 
 const copy = {
   damas: { title: 'Damas', lead: 'Florales, frutales, dulces y luminosas.' },
   caballeros: { title: 'Caballeros', lead: 'Amaderadas, frescas, especiadas e intensas.' },
+  unisex: { title: 'Unisex', lead: 'Cítricas, limpias y versátiles, para cualquier persona.' },
 } as const
 
 const sorts: Record<string, (a: Product, b: Product) => number> = {
@@ -16,13 +16,12 @@ const sorts: Record<string, (a: Product, b: Product) => number> = {
   'precio-desc': (a, b) => b.price_usd - a.price_usd,
 }
 
-export function Collection({ gender }: { gender: Exclude<Gender, 'unisex'> }) {
-  useTheme(gender === 'caballeros' ? 'dark' : 'light')
+export function Collection({ gender }: { gender: Gender }) {
   const [sort, setSort] = useState('destacados')
   const products = useProducts(gender)
 
   return (
-    <>
+    <div data-section={gender}>
       <section className={`collection-hero collection-hero--${gender}`}>
         <div className="container">
           <h1 className="display">{copy[gender].title}</h1>
@@ -31,7 +30,7 @@ export function Collection({ gender }: { gender: Exclude<Gender, 'unisex'> }) {
       </section>
       <section className="section container">
         <div className="toolbar">
-          <span className="muted num">{products.data ? `${products.data.length} fragancias` : ''}</span>
+          <span className="muted num">{products.data ? `${products.data.length} ${products.data.length === 1 ? 'fragancia' : 'fragancias'}` : ''}</span>
           <label className="toolbar__sort">
             <span className="muted">Ordenar</span>
             <select className="input" value={sort} onChange={(e) => setSort(e.target.value)}>
@@ -43,6 +42,6 @@ export function Collection({ gender }: { gender: Exclude<Gender, 'unisex'> }) {
         </div>
         <ProductGrid query={products} select={(list) => [...list].sort(sorts[sort])} />
       </section>
-    </>
+    </div>
   )
 }

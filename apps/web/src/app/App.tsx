@@ -13,6 +13,7 @@ const OrdersPage = lazy(() => import('../admin/OrdersPage').then((m) => ({ defau
 const ProductsPage = lazy(() => import('../admin/ProductsPage').then((m) => ({ default: m.ProductsPage })))
 const ProductForm = lazy(() => import('../admin/ProductForm').then((m) => ({ default: m.ProductForm })))
 const InventoryPage = lazy(() => import('../admin/InventoryPage').then((m) => ({ default: m.InventoryPage })))
+const BannersPage = lazy(() => import('../admin/BannersPage').then((m) => ({ default: m.BannersPage })))
 const SettingsPage = lazy(() => import('../admin/SettingsPage').then((m) => ({ default: m.SettingsPage })))
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="damas" element={<Collection key="damas" gender="damas" />} />
           <Route path="caballeros" element={<Collection key="caballeros" gender="caballeros" />} />
+          <Route path="unisex" element={<Collection key="unisex" gender="unisex" />} />
           <Route path="producto/:slug" element={<ProductDetail />} />
           <Route path="pedido" element={<Checkout />} />
           <Route path="*" element={<NotFound />} />
@@ -32,6 +34,7 @@ export default function App() {
           <Route path="productos" element={<ProductsPage />} />
           <Route path="productos/:id" element={<ProductForm />} />
           <Route path="inventario" element={<InventoryPage />} />
+          <Route path="banners" element={<BannersPage />} />
           <Route path="ajustes" element={<SettingsPage />} />
         </Route>
       </Routes>

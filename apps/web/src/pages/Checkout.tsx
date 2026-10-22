@@ -6,7 +6,6 @@ import { useSettings } from '../api/catalog'
 import { createOrder } from '../api/orders'
 import { buildWhatsAppMessage, formatUsd, formatVes, toVes, whatsappUrl } from '../lib/order'
 import type { Customer, OrderReceipt } from '../lib/types'
-import { useTheme } from '../lib/useTheme'
 import { cartTotal, useCart } from '../store/cart'
 import './pages.css'
 
@@ -28,7 +27,6 @@ const schema = z.object({
 type Errors = Partial<Record<keyof Customer, string>>
 
 export function Checkout() {
-  useTheme('light')
   const { lines, clear } = useCart()
   const { data: settings } = useSettings()
   const [errors, setErrors] = useState<Errors>({})

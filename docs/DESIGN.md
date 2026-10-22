@@ -1,15 +1,21 @@
 # Dirección visual — LM Perfumes
 
 - Logotipo: `apps/web/public/images/lm-logo.png`, sin redibujar. Sobre fondo oscuro va en una placa blanca.
+- Tema global claro/oscuro: sigue al dispositivo (`prefers-color-scheme`) hasta que se pulsa el botón luna/sol del header; la elección se guarda en `localStorage` (`lm-theme`).
 - Colores (`apps/web/src/styles/base.css`):
-  - Azul logo `#159BD3`: decoración, acentos y textos grandes.
-  - Azul fuerte `#0B6E9C`: botones y texto pequeño sobre blanco (contraste AA).
-  - Gris logo `#3D3D3F`: titulares grandes en claro.
-  - Claro: fondo `#FFFFFF`, superficie `#F4F6F8`, texto `#17181B`.
-  - Oscuro (Caballeros, `[data-theme='dark']`): fondo `#0F1012`, superficie `#18191C`, texto `#EEF0F2`.
-- Tipografía: Bodoni Moda para titulares (perfumería clásica), Manrope para interfaz.
-- Inicio: escenario partido claro/oscuro (Damas | Caballeros); la palabra ESENCIA cruza ambos con mix-blend difference y un frasco SVG con la etiqueta del logo queda en la costura.
-- Damas: luminoso, cursivas, degradado azul muy suave. Caballeros: tema oscuro completo con punto azul tras el título.
-- Sin etiquetas pequeñas sobre los títulos, sin números de sección decorativos, sin degradados en texto.
-- Mobile-first: objetivos táctiles ≥ 44 px, sin scroll horizontal, `prefers-reduced-motion` respetado.
-- Las fotos actuales son de demostración (Unsplash) y muestran marcas reales: reemplazarlas por fotos propias antes de publicar.
+  - Marca: azul logo `#159BD3`, azul fuerte `#0B6E9C` (texto/botones AA sobre claro), grafito `#3D3D3F`.
+  - Base clara: fondo `#FCFBF9` (blanco cálido), superficie `#F5F2EF`. Base oscura: fondo `#121113`, superficie `#1B1A1D`.
+  - **Damas** (rosa empolvado): `#F4E8E8` / `#D9B4BA` / `#8B4A5A` / `#543A40`. En oscuro: `#2A1E22` con texto `#F3D6DC`.
+  - **Caballeros** (azul pizarra): `#E6EDF2` / `#9FB7C8` / `#496A82` / `#263B4A`. En oscuro: `#172129` con texto `#D4E3EE`.
+  - **Unisex** (azul cielo de la marca): `#E3F1F8` / `#0B6E9C` / `#0B4A6B`. En oscuro: `#10232D` con texto `#CDE8F5`.
+  - Cada sección se activa con `data-section="damas|caballeros|unisex"`: colecciones, detalle, tarjetas de producto, mosaicos y banners.
+- Fotos de producto: se apoyan en una "placa" del color de su sección con `mix-blend-mode: multiply`, así el fondo blanco de la foto se funde con el color.
+- Tipografía: Playfair Display 600 (titulares, legible en tamaños grandes y medianos) + Manrope (interfaz).
+- Inicio: hero partido rosa | azul pizarra → franja de servicios (separada del hero) → 3 tarjetas compactas Damas/Caballeros/Unisex (mismo diseño, frasco SVG en el tono de cada una) → carrusel «Recién llegados» → **banner horizontal 1** → «Los más pedidos» → **banner horizontal 2** → asesoría WhatsApp → pie oscuro.
+- Banners: foto horizontal a todo el ancho con velo del color del tono a la izquierda y texto encima; en móvil foto arriba y texto debajo. Se editan en `/admin/banners` (se muestran los 2 primeros visibles). Sin foto propia usan fotos de Unsplash sin marcas.
+- El frasco SVG (`Bottle`) tiene tonos marca / damas / caballeros; se usa en mosaicos, hero y asesoría. Las fotos reales van solo en tarjetas de producto y banners.
+- Flechas y acentos siempre del color de su sección (nunca azul de marca dentro de Damas).
+- Sin etiquetas pequeñas sobre los títulos, sin números de sección decorativos.
+- Mobile-first: objetivos táctiles ≥ 44 px, sin scroll horizontal, `prefers-reduced-motion` respetado (el carrusel de banners no avanza solo).
+- Espacio entre secciones: `--section-gap` = clamp(40px, 5vw, 64px). El pie usa 1,5 veces ese valor.
+- Hero: el brillo azul se calcula con las mismas medidas del frasco (`--bh`, `--bb`), así queda centrado detrás. En móvil mide 500–600 px y la costura va al 60 %.
