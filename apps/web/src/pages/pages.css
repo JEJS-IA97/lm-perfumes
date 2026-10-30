@@ -14,7 +14,6 @@
 .collection-hero { position: relative; overflow: hidden; background: linear-gradient(135deg, var(--tint) 0%, color-mix(in srgb, var(--tint) 45%, var(--bg)) 70%, var(--bg) 100%); }
 .collection-hero h1, .collection-hero p { color: var(--tint-ink); }
 .collection-hero p { opacity: 0.8; }
-.collection-hero--damas h1 { font-style: italic; }
 .collection-hero--caballeros h1::after { content: '.'; color: var(--brand); }
 .section > .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
 .toolbar__sort { display: flex; align-items: center; gap: 10px; }

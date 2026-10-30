@@ -27,3 +27,4 @@
 - Carrusel: avanza solo cada 4,5 s (pausa con ratón, toque o foco; nunca con movimiento reducido) y las flechas dan la vuelta en los extremos.
 - Colecciones: 12 perfumes por página; orden y página en la URL (`?orden=…&pagina=2`).
 - Desplegables: abren hacia abajo; solo hacia arriba si no caben.
+- Las tres secciones usan el mismo estilo tipográfico (sin cursiva en Damas); solo cambia el color.
