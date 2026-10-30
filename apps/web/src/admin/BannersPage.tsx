@@ -4,6 +4,7 @@ import { ImagePlus, Plus } from 'lucide-react'
 import { imageUrl, supabase } from '../lib/supabase'
 import type { Banner, BannerTone } from '../lib/types'
 import { uploadProductImage } from './image'
+import { Select } from '../components/ui/Select'
 
 const blank: Omit<Banner, 'id'> = { title: '', subtitle: '', cta_label: 'Ver más', cta_url: '/', image: '', tone: 'marca', active: true, sort_order: 0 }
 
@@ -72,9 +73,9 @@ export function BannersPage() {
           </div>
           <div className="admin-form__row">
             <label className="field"><span>Color</span>
-              <select className="input" value={edit.tone} onChange={(e) => setEdit({ ...edit, tone: e.target.value as BannerTone })}>
+              <Select value={edit.tone} onChange={(e) => setEdit({ ...edit, tone: e.target.value as BannerTone })}>
                 <option value="damas">Damas (rosa)</option><option value="caballeros">Caballeros (azul pizarra)</option><option value="marca">Marca (grafito y azul)</option>
-              </select>
+              </Select>
             </label>
             <label className="field"><span>Orden</span><input className="input" type="number" value={edit.sort_order} onChange={(e) => setEdit({ ...edit, sort_order: Number(e.target.value) })} /></label>
           </div>

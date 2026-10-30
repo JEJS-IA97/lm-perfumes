@@ -37,6 +37,9 @@ export interface Banner {
 
 export interface Settings {
   exchange_rate: number
+  /** Columnas de la migración 0003; faltan si aún no se ejecutó. */
+  rate_auto?: boolean
+  rate_date?: string | null
   whatsapp_number: string
 }
 

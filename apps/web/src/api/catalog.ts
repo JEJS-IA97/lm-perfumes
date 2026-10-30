@@ -31,7 +31,7 @@ export const useSettings = () =>
     queryKey: ['settings'],
     queryFn: async (): Promise<Settings> => {
       if (!supabase) return demoSettings
-      const { data, error } = await supabase.from('settings').select('exchange_rate, whatsapp_number').eq('id', 1).single()
+      const { data, error } = await supabase.from('settings').select('*').eq('id', 1).single()
       if (error) throw error
       return data
     },

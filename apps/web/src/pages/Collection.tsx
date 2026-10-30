@@ -3,6 +3,7 @@ import { useProducts } from '../api/catalog'
 import { ProductGrid } from '../components/product/ProductGrid'
 import type { Gender, Product } from '../lib/types'
 import './pages.css'
+import { Select } from '../components/ui/Select'
 
 const copy = {
   damas: { title: 'Damas', lead: 'Florales, frutales, dulces y luminosas.' },
@@ -33,14 +34,14 @@ export function Collection({ gender }: { gender: Gender }) {
           <span className="muted num">{products.data ? `${products.data.length} ${products.data.length === 1 ? 'fragancia' : 'fragancias'}` : ''}</span>
           <label className="toolbar__sort">
             <span className="muted">Ordenar</span>
-            <select className="input" value={sort} onChange={(e) => setSort(e.target.value)}>
+            <Select value={sort} onChange={(e) => setSort(e.target.value)}>
               <option value="destacados">Destacados</option>
               <option value="precio-asc">Menor precio</option>
               <option value="precio-desc">Mayor precio</option>
-            </select>
+            </Select>
           </label>
         </div>
-        <ProductGrid query={products} select={(list) => [...list].sort(sorts[sort])} />
+        <ProductGrid query={products} section={gender} select={(list) => [...list].sort(sorts[sort])} />
       </section>
     </div>
   )

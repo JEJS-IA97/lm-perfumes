@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ChevronLeft, Minus, Plus } from 'lucide-react'
 import { useProduct } from '../api/catalog'
+import { Notes } from '../components/product/Notes'
 import { Price } from '../components/product/Price'
 import { imageUrl } from '../lib/supabase'
 import { useCart } from '../store/cart'
@@ -22,23 +23,32 @@ export function ProductDetail() {
   const images = product.images.length ? product.images : [undefined]
   const back = `/${product.gender}`
   const backLabel = { damas: 'Damas', caballeros: 'Caballeros', unisex: 'Unisex' }[product.gender]
-  const notes = [['Salida', product.notes_top], ['Corazón', product.notes_heart], ['Fondo', product.notes_base]].filter(([, v]) => v)
 
   return (
     <div className="container pdp" data-section={product.gender}>
       <Link to={back} className="pdp__back muted"><ChevronLeft size={18} /> {backLabel}</Link>
       <div className="pdp__grid">
-        <div className="pdp__gallery">
-          <img className="pdp__main" src={imageUrl(images[active])} alt={product.name} width="900" height="1125" />
+        {/* Galería tipo tienda: miniaturas a la izquierda (abajo en móvil) e imagen contenida, nunca gigante. */}
+        <div className={images.length > 1 ? 'pdp__gallery pdp__gallery--thumbs' : 'pdp__gallery'}>
           {images.length > 1 && (
-            <div className="pdp__thumbs">
+            <div className="pdp__thumbs" role="tablist" aria-label="Imágenes del producto">
               {images.map((src, i) => (
-                <button key={i} onClick={() => setActive(i)} aria-label={`Ver imagen ${i + 1}`} aria-current={i === active}>
+                <button
+                  key={i}
+                  role="tab"
+                  aria-selected={i === active}
+                  aria-label={`Ver imagen ${i + 1}`}
+                  onClick={() => setActive(i)}
+                  onMouseEnter={() => setActive(i)}
+                >
                   <img src={imageUrl(src)} alt="" loading="lazy" />
                 </button>
               ))}
             </div>
           )}
+          <div className="pdp__stage">
+            <img key={active} className="pdp__main" src={imageUrl(images[active])} alt={product.name} width="900" height="900" />
+          </div>
         </div>
 
         <div className="pdp__info">
@@ -59,12 +69,8 @@ export function ProductDetail() {
             </button>
           </div>
 
-          {notes.length > 0 && (
-            <dl className="notes">
-              {notes.map(([k, v]) => (<div key={k}><dt>{k}</dt><dd>{v}</dd></div>))}
-            </dl>
-          )}
           {product.description && <p className="pdp__desc">{product.description}</p>}
+          <Notes top={product.notes_top} heart={product.notes_heart} base={product.notes_base} />
         </div>
       </div>
     </div>

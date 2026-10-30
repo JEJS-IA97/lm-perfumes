@@ -1,5 +1,5 @@
 import type { UseQueryResult } from '@tanstack/react-query'
-import type { Product } from '../../lib/types'
+import type { Gender, Product } from '../../lib/types'
 import { ProductCard } from './ProductCard'
 import './product.css'
 
@@ -7,10 +7,12 @@ import './product.css'
 export function ProductGrid({
   query,
   select = (list) => list,
+  section,
   empty = 'Pronto habrá fragancias aquí.',
 }: {
   query: UseQueryResult<Product[]>
   select?: (list: Product[]) => Product[]
+  section?: Gender
   empty?: string
 }) {
   if (query.isPending)
@@ -30,7 +32,7 @@ export function ProductGrid({
 
   return (
     <div className="grid">
-      {products.map((p) => <ProductCard key={p.id} product={p} />)}
+      {products.map((p) => <ProductCard key={p.id} product={p} section={section} />)}
     </div>
   )
 }

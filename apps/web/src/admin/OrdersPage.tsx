@@ -4,6 +4,7 @@ import { MessageCircle } from 'lucide-react'
 import { formatUsd, formatVes } from '../lib/order'
 import { supabase } from '../lib/supabase'
 import type { Order, OrderStatus } from '../lib/types'
+import { Select } from '../components/ui/Select'
 
 const STATUSES: OrderStatus[] = ['nuevo', 'confirmado', 'entregado', 'cancelado']
 
@@ -32,10 +33,10 @@ export function OrdersPage() {
     <section>
       <div className="admin__head">
         <h1>Pedidos</h1>
-        <select className="input admin__filter" value={filter} onChange={(e) => setFilter(e.target.value as typeof filter)} aria-label="Filtrar por estado">
+        <Select className="admin__filter" value={filter} onChange={(e) => setFilter(e.target.value as typeof filter)} aria-label="Filtrar por estado">
           <option value="todos">Todos</option>
           {STATUSES.map((s) => <option key={s} value={s}>{s[0].toUpperCase() + s.slice(1)}</option>)}
-        </select>
+        </Select>
       </div>
       {isPending && <p className="muted">Cargando…</p>}
       {isError && <p className="alert">No se pudieron cargar los pedidos.</p>}
@@ -68,9 +69,9 @@ export function OrdersPage() {
                 {o.notes && <><dt>Notas</dt><dd>{o.notes}</dd></>}
               </dl>
               <div className="order__actions">
-                <select className="input" value={o.status} onChange={(e) => setStatus(o, e.target.value as OrderStatus)} aria-label="Estado del pedido">
+                <Select value={o.status} onChange={(e) => setStatus(o, e.target.value as OrderStatus)} aria-label="Estado del pedido">
                   {STATUSES.map((s) => <option key={s} value={s}>{s[0].toUpperCase() + s.slice(1)}</option>)}
-                </select>
+                </Select>
                 <a className="btn btn-outline" href={`https://wa.me/${o.customer_phone.replace(/\D/g, '').replace(/^0/, '58')}`} target="_blank" rel="noreferrer">
                   <MessageCircle size={18} /> Escribir al cliente
                 </a>

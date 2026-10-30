@@ -18,33 +18,44 @@
 .collection-hero--caballeros h1::after { content: '.'; color: var(--brand); }
 .section > .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
 .toolbar__sort { display: flex; align-items: center; gap: 10px; }
-.toolbar__sort .input { width: auto; min-height: 44px; }
+.toolbar__sort .select { width: 190px; }
+.toolbar__sort .input { min-height: 44px; }
 .pdp { padding-top: 20px; }
 .pdp__back { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; font-weight: 600; }
 .pdp__back:hover { color: var(--text); }
-.pdp__grid { display: grid; gap: 28px; margin-top: 8px; }
-@media (min-width: 900px) { .pdp__grid { grid-template-columns: 7fr 5fr; gap: 64px; align-items: start; } .pdp__info { position: sticky; top: 96px; } }
-.pdp__main { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius); background: var(--plate); mix-blend-mode: multiply; }
-.pdp__gallery { background: var(--plate); border-radius: var(--radius); }
-.pdp__thumbs { background: var(--bg); }
-.pdp__thumbs { display: flex; gap: 10px; margin-top: 10px; overflow-x: auto; }
-.pdp__thumbs button { flex: none; width: 72px; padding: 0; border: 2px solid transparent; border-radius: var(--radius); background: none; overflow: hidden; }
-.pdp__thumbs button[aria-current='true'] { border-color: var(--brand); }
-.pdp__thumbs img { aspect-ratio: 4 / 5; object-fit: cover; }
+.pdp__grid { display: grid; gap: 24px; margin-top: 8px; }
+@media (min-width: 900px) {
+  .pdp__grid { grid-template-columns: minmax(0, 11fr) minmax(0, 9fr); gap: clamp(32px, 4vw, 64px); align-items: start; }
+  .pdp__gallery { position: sticky; top: 92px; }
+}
+.pdp__gallery { display: grid; gap: 10px; max-width: 640px; width: 100%; }
+@media (min-width: 900px) { .pdp__gallery--thumbs { grid-template-columns: 72px minmax(0, 1fr); } }
+.pdp__stage {
+  position: relative; aspect-ratio: 1; width: min(100%, 64vh, 600px); justify-self: center;
+  border-radius: calc(var(--radius) * 1.4); background: var(--plate); overflow: hidden;
+}
+.pdp__main { position: absolute; inset: 0; width: 100%; height: 100%; padding: 8%; object-fit: contain; filter: drop-shadow(0 18px 20px rgb(0 0 0 / 0.18)); }
+[data-theme='light'] .pdp__main { mix-blend-mode: multiply; }
+@media (prefers-reduced-motion: no-preference) { .pdp__main { animation: fade-in 0.35s var(--ease-out); } @keyframes fade-in { from { opacity: 0; transform: scale(0.98); } } }
+.pdp__thumbs { display: flex; gap: 8px; overflow-x: auto; order: 2; scrollbar-width: none; }
+@media (min-width: 900px) { .pdp__thumbs { flex-direction: column; order: 0; overflow: visible; } }
+.pdp__thumbs button {
+  flex: none; width: 68px; height: 68px; padding: 4px; border: 2px solid transparent; border-radius: var(--radius);
+  background: var(--plate); cursor: pointer; transition: border-color 0.2s;
+}
+.pdp__thumbs button:hover { border-color: var(--line); }
+.pdp__thumbs button[aria-selected='true'] { border-color: var(--accent); }
+.pdp__thumbs img { width: 100%; height: 100%; object-fit: contain; }
 .pdp__info h1 { font-size: clamp(36px, 5vw, 56px); margin: 4px 0 6px; }
 .pdp__info > .muted { margin: 0 0 20px; }
 .stock { margin: 14px 0 0; font-size: 14px; font-weight: 700; color: var(--danger); }
 [data-theme='dark'] .stock { color: #ff8f85; }
 .stock--ok { color: var(--success); }
 [data-theme='dark'] .stock--ok { color: #6fd6a0; }
-.pdp__buy { display: flex; gap: 12px; margin: 24px 0 32px; }
-.pdp__buy .stepper button { height: 48px; }
-.pdp__buy .btn { flex: 1; }
-.notes { display: grid; gap: 0; margin: 0 0 24px; border-top: 1px solid var(--line); }
-.notes > div { display: grid; grid-template-columns: 96px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
-.notes dt { font-weight: 700; }
-.notes dd { margin: 0; color: var(--text-muted); }
-.pdp__desc { max-width: 65ch; color: var(--text-muted); }
+.pdp__buy { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 22px 0 28px; }
+.pdp__buy .stepper button { height: 46px; }
+.pdp__buy .btn { min-height: 48px; padding: 0 28px; }
+.pdp__desc { max-width: 60ch; margin: 0 0 8px; color: var(--text-muted); line-height: 1.65; }
 .checkout { display: grid; gap: 40px; }
 @media (min-width: 960px) { .checkout { grid-template-columns: 7fr 5fr; gap: 72px; align-items: start; } .checkout__summary { position: sticky; top: 96px; } }
 .checkout__form { display: grid; gap: 18px; }

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useSettings } from '../../api/catalog'
+import { formatVes } from '../../lib/order'
 import './layout.css'
 
 export function Footer() {
@@ -34,7 +35,12 @@ export function Footer() {
       </div>
       <div className="container site-footer__legal">
         <span>© {new Date().getFullYear()} LM Perfumes</span>
-        <span>Precios en Bs según la tasa del día.</span>
+        {settings && (
+          <span className="num">
+            Tasa BCV {formatVes(settings.exchange_rate)}
+            {settings.rate_date && ` · ${new Date(settings.rate_date).toLocaleDateString('es-VE')}`}
+          </span>
+        )}
       </div>
     </footer>
   )

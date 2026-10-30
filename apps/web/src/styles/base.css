@@ -35,7 +35,7 @@
   --bg: #121113;
   --surface: #1b1a1d;
   --surface-2: #26242a;
-  --plate: #e9e5e2;
+  --plate: #222126;
   --text: #f1eeeb;
   --text-muted: #aaa49f;
   --line: #2f2c31;
@@ -48,9 +48,9 @@
 [data-section='damas'] { --accent: var(--rose-600); --on-accent: #fff; --tint: var(--rose-100); --tint-ink: var(--rose-800); --plate: var(--rose-100); }
 [data-section='caballeros'] { --accent: var(--navy-800); --on-accent: #fff; --tint: var(--navy-100); --tint-ink: var(--navy-800); --plate: var(--navy-100); }
 [data-section='unisex'] { --accent: var(--sky-600); --on-accent: #fff; --tint: var(--sky-100); --tint-ink: var(--sky-800); --plate: var(--sky-100); }
-[data-theme='dark'] [data-section='unisex'] { --accent: #6cc4ea; --on-accent: #06141c; --tint: #10232d; --tint-ink: #cde8f5; --plate: #dfeef6; }
-[data-theme='dark'] [data-section='damas'] { --accent: #e7b3bf; --on-accent: #2a1519; --tint: #2a1e22; --tint-ink: #f3d6dc; --plate: #f1e2e3; }
-[data-theme='dark'] [data-section='caballeros'] { --accent: #8db5d1; --on-accent: #0d1a23; --tint: #172129; --tint-ink: #d4e3ee; --plate: #e1e9ef; }
+[data-theme='dark'] [data-section='unisex'] { --accent: #6cc4ea; --on-accent: #06141c; --tint: #10232d; --tint-ink: #cde8f5; --plate: #15303d; }
+[data-theme='dark'] [data-section='damas'] { --accent: #e7b3bf; --on-accent: #2a1519; --tint: #2a1e22; --tint-ink: #f3d6dc; --plate: #33252a; }
+[data-theme='dark'] [data-section='caballeros'] { --accent: #8db5d1; --on-accent: #0d1a23; --tint: #172129; --tint-ink: #d4e3ee; --plate: #1e2c37; }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -77,12 +77,46 @@ h1, h2, h3 { text-wrap: balance; }
 .btn-block { width: 100%; }
 .link { font-weight: 600; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 .link:hover { color: var(--accent); }
-.field { display: grid; gap: 6px; }
+.field { display: grid; gap: 6px; align-content: start; }
 .field > span { font-size: 14px; font-weight: 600; }
 .field small { font-size: 13px; color: var(--text-muted); }
 .input { width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); transition: border-color 0.15s; }
 .input:hover { border-color: var(--text-muted); }
 .input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+/* Select: misma caja que .input, flecha propia centrada que gira al abrir (:open) o con el foco del teclado. */
+.select { position: relative; display: block; }
+.select select { appearance: none; -webkit-appearance: none; padding-right: 44px; cursor: pointer; text-overflow: ellipsis; }
+.select__chevron {
+  position: absolute; right: 14px; top: 50%; translate: 0 -50%; pointer-events: none;
+  color: var(--text-muted); transition: rotate 0.25s var(--ease-out), color 0.2s;
+}
+.select:hover .select__chevron { color: var(--text); }
+.select:has(select:focus-visible) .select__chevron { color: var(--accent); }
+.select:has(select:open) .select__chevron { rotate: 180deg; color: var(--accent); }
+select.input option { background: var(--bg); color: var(--text); }
+/* Lista desplegable con el estilo de la tienda (Chrome/Edge 135+). Safari y Firefox muestran su menú nativo. */
+@supports (appearance: base-select) {
+  .select select, .select select::picker(select) { appearance: base-select; }
+  .select select::picker-icon { display: none; }          /* usamos nuestra propia flecha */
+  .select select::picker(select) {
+    margin-top: 6px; padding: 6px; border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--bg); color: var(--text); box-shadow: var(--shadow);
+    opacity: 0; translate: 0 -6px;
+    transition: opacity 0.18s var(--ease-out), translate 0.18s var(--ease-out), display 0.18s allow-discrete, overlay 0.18s allow-discrete;
+  }
+  .select select:open::picker(select) { opacity: 1; translate: 0 0; }
+  @starting-style { .select select:open::picker(select) { opacity: 0; translate: 0 -6px; } }
+  .select select option {
+    display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 8px 12px;
+    border-radius: calc(var(--radius) - 3px); background: transparent; font-size: 15px; cursor: pointer;
+  }
+  .select select option::checkmark { order: 1; margin-left: auto; color: var(--accent); }
+  .select select option:hover, .select select option:focus-visible { background: var(--surface); outline: none; }
+  .select select option:checked { color: var(--accent); font-weight: 700; background: color-mix(in srgb, var(--accent) 10%, var(--bg)); }
+}
+/* Sin flechas de número del navegador: alteran el alto y la alineación. */
+input[type='number'].input { -moz-appearance: textfield; }
+input[type='number'].input::-webkit-inner-spin-button, input[type='number'].input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 textarea.input { min-height: 96px; resize: vertical; }
 .alert { padding: 12px 14px; border-radius: var(--radius); font-size: 14px; background: color-mix(in srgb, var(--danger) 10%, var(--bg)); color: var(--danger); }
 .skeleton { background: linear-gradient(90deg, var(--surface) 0%, var(--surface-2) 50%, var(--surface) 100%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: var(--radius); }

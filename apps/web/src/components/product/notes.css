@@ -1,0 +1,40 @@
+/* Colores por familia olfativa (iguales en ambos modos; el fondo del icono es una mezcla suave). */
+.fam--citrico { --fam: #d9a400; }
+.fam--frutal { --fam: #e0613e; }
+.fam--floral { --fam: #d06a92; }
+.fam--aromatico { --fam: #5e9c64; }
+.fam--especiado { --fam: #c4643b; }
+.fam--dulce { --fam: #c08a54; }
+.fam--cafe { --fam: #8a5a3c; }
+.fam--amaderado { --fam: #8b6b4a; }
+.fam--ambar { --fam: #c9902c; }
+.fam--almizcle { --fam: #8e84b0; }
+.fam--marino { --fam: #2f97c1; }
+.fam--cuero { --fam: #7d4f3a; }
+.fam--otra { --fam: var(--text-muted); }
+
+.olfactory { display: grid; gap: 22px; margin: 8px 0 28px; padding-top: 24px; border-top: 1px solid var(--line); }
+.olfactory__title { margin: 0 0 10px; font-family: var(--font-ui); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+
+.accords { display: grid; gap: 6px; }
+.accord::first-letter { text-transform: uppercase; }
+.accord {
+  padding: 6px 12px; border-radius: 0 999px 999px 0; font-size: 14px; font-weight: 700;
+  background: color-mix(in srgb, var(--fam) 28%, var(--bg)); color: var(--text);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .accord { animation: grow 0.8s var(--ease-out) both; transform-origin: left; }
+  .accord:nth-of-type(2) { animation-delay: 0.06s; } .accord:nth-of-type(3) { animation-delay: 0.12s; }
+  .accord:nth-of-type(4) { animation-delay: 0.18s; } .accord:nth-of-type(5) { animation-delay: 0.24s; }
+  @keyframes grow { from { transform: scaleX(0.2); opacity: 0; } }
+}
+
+.tier ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.tier li {
+  display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; border-radius: 999px;
+  background: var(--surface); font-size: 14px; font-weight: 600;
+}
+.note__icon {
+  display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  background: color-mix(in srgb, var(--fam) 18%, transparent); color: var(--fam);
+}

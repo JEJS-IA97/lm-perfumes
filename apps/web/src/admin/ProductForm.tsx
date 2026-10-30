@@ -5,12 +5,15 @@ import { ImagePlus, Star, X } from 'lucide-react'
 import { imageUrl, supabase } from '../lib/supabase'
 import type { Product } from '../lib/types'
 import { deleteProductImage, uploadProductImage } from './image'
+import { Select } from '../components/ui/Select'
 
 const empty: Omit<Product, 'id' | 'created_at'> = {
   slug: '', name: '', brand: '', gender: 'damas', concentration: 'Eau de Parfum', volume_ml: 100,
   description: '', notes_top: '', notes_heart: '', notes_base: '',
   price_usd: 0, compare_at_usd: null, images: [], available: true, featured: false, sort_order: 0,
 }
+
+const CONCENTRATIONS = ['', 'Eau de Parfum', 'Eau de Toilette', 'Parfum', 'Extrait de Parfum', 'Eau de Cologne', 'Aceite de perfume', 'Body mist']
 
 const slugify = (s: string) =>
   s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
@@ -91,14 +94,17 @@ export function ProductForm() {
         <div className="admin-form__row">
           <label className="field"><span>Marca</span><input className="input" maxLength={80} value={p.brand} onChange={(e) => set('brand', e.target.value)} /></label>
           <label className="field"><span>Sección</span>
-            <select className="input" value={p.gender} onChange={(e) => set('gender', e.target.value as Product['gender'])}>
+            <Select value={p.gender} onChange={(e) => set('gender', e.target.value as Product['gender'])}>
               <option value="damas">Damas</option><option value="caballeros">Caballeros</option><option value="unisex">Unisex (ambas)</option>
-            </select>
+            </Select>
           </label>
         </div>
         <div className="admin-form__row">
-          <label className="field"><span>Concentración</span><input className="input" list="concentrations" value={p.concentration} onChange={(e) => set('concentration', e.target.value)} /></label>
-          <datalist id="concentrations"><option value="Eau de Parfum" /><option value="Eau de Toilette" /><option value="Parfum" /><option value="Eau de Cologne" /></datalist>
+          <label className="field"><span>Concentración</span>
+            <Select value={p.concentration} onChange={(e) => set('concentration', e.target.value)}>
+              {[...new Set([...CONCENTRATIONS, p.concentration])].map((c) => <option key={c} value={c}>{c || 'Sin especificar'}</option>)}
+            </Select>
+          </label>
           <label className="field"><span>Mililitros</span><input className="input" type="number" min={1} value={p.volume_ml ?? ''} onChange={(e) => set('volume_ml', e.target.value ? Number(e.target.value) : null)} /></label>
         </div>
         <div className="admin-form__row">

@@ -9,7 +9,11 @@
   - **Caballeros** (azul pizarra): `#E6EDF2` / `#9FB7C8` / `#496A82` / `#263B4A`. En oscuro: `#172129` con texto `#D4E3EE`.
   - **Unisex** (azul cielo de la marca): `#E3F1F8` / `#0B6E9C` / `#0B4A6B`. En oscuro: `#10232D` con texto `#CDE8F5`.
   - Cada sección se activa con `data-section="damas|caballeros|unisex"`: colecciones, detalle, tarjetas de producto, mosaicos y banners.
-- Fotos de producto: se apoyan en una "placa" del color de su sección con `mix-blend-mode: multiply`, así el fondo blanco de la foto se funde con el color.
+- Fotos de producto (idealmente sin fondo): caja fija 4:5 en tarjetas y cuadrada en la ficha, `object-fit: contain` con margen interior, sobre una "placa" del color de su sección (oscura en modo oscuro). En modo claro se aplica `multiply` para fundir fotos antiguas con fondo blanco.
+- Tarjetas: alto fijo; marca, nombre y concentración en una línea con «…» y el texto completo en el tooltip (`title`).
+- Ficha: galería tipo tienda (miniaturas a la izquierda en escritorio, debajo en móvil; cambia al pasar el ratón), imagen como máximo 600 px; precio 34–42 px; botón de compra de ancho natural.
+- Notas olfativas: iconos Lucide asignados automáticamente por familia (`lib/notes.ts`) + barras de «Acordes principales» calculadas de las mismas notas (fondo pesa ×2, corazón ×1,5).
+- Selects: componente `components/ui/Select.tsx` con la misma caja que `.input` y flecha propia centrada que gira al abrir.
 - Tipografía: Playfair Display 600 (titulares, legible en tamaños grandes y medianos) + Manrope (interfaz).
 - Inicio: hero partido rosa | azul pizarra → franja de servicios (separada del hero) → 3 tarjetas compactas Damas/Caballeros/Unisex (mismo diseño, frasco SVG en el tono de cada una) → carrusel «Recién llegados» → **banner horizontal 1** → «Los más pedidos» → **banner horizontal 2** → asesoría WhatsApp → pie oscuro.
 - Banners: foto horizontal a todo el ancho con velo del color del tono a la izquierda y texto encima; en móvil foto arriba y texto debajo. Se editan en `/admin/banners` (se muestran los 2 primeros visibles). Sin foto propia usan fotos de Unsplash sin marcas.
