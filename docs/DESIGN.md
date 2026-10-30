@@ -7,7 +7,8 @@
   - Base clara: fondo `#FCFBF9` (blanco cálido), superficie `#F5F2EF`. Base oscura: fondo `#121113`, superficie `#1B1A1D`.
   - **Damas** (rosa empolvado): `#F4E8E8` / `#D9B4BA` / `#8B4A5A` / `#543A40`. En oscuro: `#2A1E22` con texto `#F3D6DC`.
   - **Caballeros** (azul pizarra): `#E6EDF2` / `#9FB7C8` / `#496A82` / `#263B4A`. En oscuro: `#172129` con texto `#D4E3EE`.
-  - **Unisex** (azul cielo de la marca): `#E3F1F8` / `#0B6E9C` / `#0B4A6B`. En oscuro: `#10232D` con texto `#CDE8F5`.
+  - **Unisex** (lila, para no confundirse con Caballeros): `#ECE8F3` / `#C3B8DB` / `#6A5A94` / `#3D3456`. En oscuro: placa `#2A2633` con texto `#DDD6EE`.
+  - En oscuro las tres placas tienen la misma luminosidad baja y poca saturación (rosa `#33252A`, pizarra `#242B32`, lila `#2A2633`).
   - Cada sección se activa con `data-section="damas|caballeros|unisex"`: colecciones, detalle, tarjetas de producto, mosaicos y banners.
 - Fotos de producto (idealmente sin fondo): caja fija 4:5 en tarjetas y cuadrada en la ficha, `object-fit: contain` con margen interior, sobre una "placa" del color de su sección (oscura en modo oscuro). En modo claro se aplica `multiply` para fundir fotos antiguas con fondo blanco.
 - Tarjetas: alto fijo; marca, nombre y concentración en una línea con «…» y el texto completo en el tooltip (`title`).
@@ -23,3 +24,6 @@
 - Mobile-first: objetivos táctiles ≥ 44 px, sin scroll horizontal, `prefers-reduced-motion` respetado (el carrusel de banners no avanza solo).
 - Espacio entre secciones: `--section-gap` = clamp(40px, 5vw, 64px). El pie usa 1,5 veces ese valor.
 - Hero: el brillo azul se calcula con las mismas medidas del frasco (`--bh`, `--bb`), así queda centrado detrás. En móvil mide 500–600 px y la costura va al 60 %.
+- Carrusel: avanza solo cada 4,5 s (pausa con ratón, toque o foco; nunca con movimiento reducido) y las flechas dan la vuelta en los extremos.
+- Colecciones: 12 perfumes por página; orden y página en la URL (`?orden=…&pagina=2`).
+- Desplegables: abren hacia abajo; solo hacia arriba si no caben.

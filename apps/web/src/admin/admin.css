@@ -79,3 +79,16 @@
 .spin { animation: spin 0.9s linear infinite; }
 @keyframes spin { to { rotate: 360deg; } }
 .order__actions .select { width: 200px; }
+
+/* Productos: filtros + lista con su propio scroll (no crece la página al agregar productos). */
+.admin-filters { display: grid; gap: 10px; margin-bottom: 12px; }
+@media (min-width: 720px) { .admin-filters { grid-template-columns: 1fr 200px 220px; } }
+.admin-search { position: relative; display: block; }
+.admin-search svg { position: absolute; left: 14px; top: 50%; translate: 0 -50%; color: var(--text-muted); pointer-events: none; }
+.admin-search .input { padding-left: 42px; }
+.admin-count { margin: 0 0 8px; font-size: 13px; }
+.admin-list--scroll {
+  max-height: min(62vh, 640px); overflow-y: auto; overscroll-behavior: contain; padding-right: 4px;
+  scrollbar-width: thin; scrollbar-color: var(--line) transparent;
+}
+.admin-list__row img { object-fit: contain; }

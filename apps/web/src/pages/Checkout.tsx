@@ -10,7 +10,8 @@ import { cartTotal, useCart } from '../store/cart'
 import './pages.css'
 
 const DELIVERY = ['retiro', 'delivery', 'envío nacional'] as const
-const PAYMENT = ['pago móvil', 'zelle', 'efectivo USD', 'transferencia Bs'] as const
+const PAYMENT = ['pago móvil', 'efectivo USD', 'binance', 'zelle'] as const
+const PAYMENT_LABEL: Record<(typeof PAYMENT)[number], string> = { 'pago móvil': 'Pago móvil', 'efectivo USD': 'Efectivo $', binance: 'Binance', zelle: 'Zelle' }
 
 // Misma validación que create_order() en la base de datos; aquí solo para avisar antes de enviar.
 const schema = z.object({
@@ -105,7 +106,7 @@ export function Checkout() {
         <fieldset className="choices">
           <legend>Forma de pago</legend>
           {PAYMENT.map((p, i) => (
-            <label key={p}><input type="radio" name="payment" value={p} defaultChecked={i === 0} /> {p[0].toUpperCase() + p.slice(1)}</label>
+            <label key={p}><input type="radio" name="payment" value={p} defaultChecked={i === 0} /> {PAYMENT_LABEL[p]}</label>
           ))}
         </fieldset>
         <label className="field">

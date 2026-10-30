@@ -1,0 +1,10 @@
+.pagination { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 6px; margin-top: 40px; }
+.pagination button {
+  min-width: 44px; height: 44px; padding: 0 12px; display: grid; place-items: center;
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); font-weight: 600;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+.pagination button:hover:not(:disabled):not([aria-current]) { border-color: var(--text); }
+.pagination button[aria-current='page'] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.pagination button:disabled { opacity: 0.35; cursor: not-allowed; }
+.pagination__gap { min-width: 24px; text-align: center; color: var(--text-muted); }

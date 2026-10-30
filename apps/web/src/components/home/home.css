@@ -22,9 +22,10 @@
 
 /* ── Carrusel ─────────────────────────────────────────────── */
 .carousel { padding-top: var(--section-gap); }
-.carousel__head { display: flex; align-items: center; gap: 16px 24px; flex-wrap: wrap; margin-bottom: 24px; }
+.carousel__head { display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; margin-bottom: 24px; }
+.carousel__actions { display: flex; align-items: center; gap: 16px; }
 .carousel__head h2 { margin: 0; font-size: clamp(30px, 4vw, 48px); }
-.carousel__nav { display: flex; gap: 8px; margin-left: auto; }
+.carousel__nav { display: flex; gap: 8px; }
 .carousel__nav button {
   width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%;
   border: 1px solid var(--line); background: var(--bg); transition: background-color 0.2s, border-color 0.2s;

@@ -1,10 +1,11 @@
 import { useId } from 'react'
 
-// Colores del líquido por tono: marca (azul del logo), damas (rosa) y caballeros (azul pizarra).
+// Colores del líquido por tono: marca (azul del logo), damas (rosa), caballeros (azul pizarra) y unisex (lila).
 const LIQUID = {
   marca: ['#4cb8e4', '#159bd3', '#0a5f88'],
   damas: ['#f0c9d0', '#c98595', '#8b4a5a'],
   caballeros: ['#8fb0c6', '#496a82', '#1d2f3b'],
+  unisex: ['#d6cdea', '#8f7fb8', '#5a4a84'],
 } as const
 
 /** Frasco dibujado con los colores de la marca: sin fotos de terceros y nítido a cualquier tamaño. */

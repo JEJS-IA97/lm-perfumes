@@ -5,7 +5,7 @@
   --brand-strong: #0b6e9c;
   --graphite: #3d3d3f;
   --rose-50: #fcf6f5; --rose-100: #f4e8e8; --rose-300: #d9b4ba; --rose-600: #8b4a5a; --rose-800: #543a40;
-  --sky-100: #e3f1f8; --sky-600: #0b6e9c; --sky-800: #0b4a6b;
+  --lilac-100: #ece8f3; --lilac-300: #c3b8db; --lilac-600: #6a5a94; --lilac-800: #3d3456;
   --navy-50: #f3f6f8; --navy-100: #e6edf2; --navy-300: #9fb7c8; --navy-600: #496a82; --navy-800: #263b4a;
 
   --bg: #fcfbf9;
@@ -47,10 +47,10 @@
 
 [data-section='damas'] { --accent: var(--rose-600); --on-accent: #fff; --tint: var(--rose-100); --tint-ink: var(--rose-800); --plate: var(--rose-100); }
 [data-section='caballeros'] { --accent: var(--navy-800); --on-accent: #fff; --tint: var(--navy-100); --tint-ink: var(--navy-800); --plate: var(--navy-100); }
-[data-section='unisex'] { --accent: var(--sky-600); --on-accent: #fff; --tint: var(--sky-100); --tint-ink: var(--sky-800); --plate: var(--sky-100); }
-[data-theme='dark'] [data-section='unisex'] { --accent: #6cc4ea; --on-accent: #06141c; --tint: #10232d; --tint-ink: #cde8f5; --plate: #15303d; }
+[data-section='unisex'] { --accent: var(--lilac-600); --on-accent: #fff; --tint: var(--lilac-100); --tint-ink: var(--lilac-800); --plate: var(--lilac-100); }
+[data-theme='dark'] [data-section='unisex'] { --accent: #b9a8e3; --on-accent: #1c1629; --tint: #221e2b; --tint-ink: #ddd6ee; --plate: #2a2633; }
 [data-theme='dark'] [data-section='damas'] { --accent: #e7b3bf; --on-accent: #2a1519; --tint: #2a1e22; --tint-ink: #f3d6dc; --plate: #33252a; }
-[data-theme='dark'] [data-section='caballeros'] { --accent: #8db5d1; --on-accent: #0d1a23; --tint: #172129; --tint-ink: #d4e3ee; --plate: #1e2c37; }
+[data-theme='dark'] [data-section='caballeros'] { --accent: #a3b9ca; --on-accent: #111a21; --tint: #1b2228; --tint-ink: #d6e0e8; --plate: #242b32; }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -99,6 +99,8 @@ select.input option { background: var(--bg); color: var(--text); }
   .select select, .select select::picker(select) { appearance: base-select; }
   .select select::picker-icon { display: none; }          /* usamos nuestra propia flecha */
   .select select::picker(select) {
+    /* Por defecto Chrome abre hacia el lado con más espacio (a veces arriba). Abajo siempre; arriba solo si no cabe. */
+    position-area: block-end span-inline-end; position-try-order: normal; position-try-fallbacks: flip-block;
     margin-top: 6px; padding: 6px; border: 1px solid var(--line); border-radius: var(--radius);
     background: var(--bg); color: var(--text); box-shadow: var(--shadow);
     opacity: 0; translate: 0 -6px;

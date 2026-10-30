@@ -10,7 +10,7 @@ const TILES = [
   { gender: 'unisex', title: 'Unisex', lead: 'Cítricas, limpias y versátiles' },
 ] as const
 
-const BOTTLE_TONE = { damas: 'damas', caballeros: 'caballeros', unisex: 'marca' } as const
+const BOTTLE_TONE = { damas: 'damas', caballeros: 'caballeros', unisex: 'unisex' } as const
 
 /** Accesos a cada colección: mismo diseño para ambas, cambia solo la paleta y el color del frasco. */
 export function CategoryTiles({ products = [] }: { products?: Product[] }) {

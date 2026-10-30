@@ -40,7 +40,7 @@
 .hero2__door small { grid-column: 1; font-size: 14px; font-weight: 600; margin-top: 8px; }
 .hero2__arrow { grid-column: 2; grid-row: 1 / span 2; margin-bottom: 6px; transition: transform 0.35s var(--ease-out); }
 .hero2__door:hover .hero2__arrow { transform: translateX(6px); }
-.hero2__door--damas { left: clamp(24px, 4vw, 64px); color: #543a40; }
+.hero2__door--damas { left: clamp(24px, 4vw, 64px); color: #543a40; text-align: right; }
 .hero2__door--damas span { font-style: italic; }
 .hero2__door--damas small { color: #71545a; }
 .hero2__door--damas .hero2__arrow { color: var(--rose-600); }

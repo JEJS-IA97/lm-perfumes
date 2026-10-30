@@ -48,7 +48,7 @@ export function Footer() {
         </Col>
         <Col title="Pagos y entrega" desktop={desktop}>
           <span>Pago móvil · Binance</span>
-          <span>Transferencia en Bs · Efectivo USD</span>
+          <span>Efectivo $ · Zelle</span>
           <span>Retiro, delivery o envío nacional</span>
         </Col>
         <Col title="Contacto" desktop={desktop}>

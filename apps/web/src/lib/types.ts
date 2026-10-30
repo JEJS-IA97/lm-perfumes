@@ -50,7 +50,7 @@ export interface Customer {
   city: string
   address: string
   delivery: 'retiro' | 'delivery' | 'envío nacional'
-  payment: 'pago móvil' | 'zelle' | 'efectivo USD' | 'transferencia Bs'
+  payment: 'pago móvil' | 'efectivo USD' | 'binance' | 'zelle'
   notes: string
 }
 
