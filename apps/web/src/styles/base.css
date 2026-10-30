@@ -85,7 +85,9 @@ h1, h2, h3 { text-wrap: balance; }
 .input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
 /* Select: misma caja que .input, flecha propia centrada que gira al abrir (:open) o con el foco del teclado. */
 .select { position: relative; display: block; }
-.select select { appearance: none; -webkit-appearance: none; padding-right: 44px; cursor: pointer; text-overflow: ellipsis; }
+/* El select siempre llena su caja y va en una línea (más específico que reglas sueltas como `.x .input { width: auto }`). */
+.select > select.input { width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.select select { appearance: none; -webkit-appearance: none; padding-right: 44px; cursor: pointer; }
 .select__chevron {
   position: absolute; right: 14px; top: 50%; translate: 0 -50%; pointer-events: none;
   color: var(--text-muted); transition: rotate 0.25s var(--ease-out), color 0.2s;

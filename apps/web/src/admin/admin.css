@@ -69,7 +69,6 @@
 .order__data dt { font-weight: 700; }
 .order__data dd { margin: 0; }
 .order__actions { display: flex; flex-wrap: wrap; gap: 10px; }
-.order__actions .input { width: auto; }
 
 .admin-list__row--banner { grid-template-columns: 1fr auto auto auto; }
 .admin-list__row--banner span:first-child { display: grid; min-width: 0; }
@@ -78,11 +77,11 @@
 .admin-rate { margin: 0; font-size: 18px; }
 .spin { animation: spin 0.9s linear infinite; }
 @keyframes spin { to { rotate: 360deg; } }
-.order__actions .select { width: 200px; }
+.order__actions .select { width: 180px; }
 
 /* Productos: filtros + lista con su propio scroll (no crece la página al agregar productos). */
 .admin-filters { display: grid; gap: 10px; margin-bottom: 12px; }
-@media (min-width: 720px) { .admin-filters { grid-template-columns: 1fr 200px 220px; } }
+@media (min-width: 720px) { .admin-filters { grid-template-columns: minmax(0, 1fr) 220px 240px; } }
 .admin-search { position: relative; display: block; }
 .admin-search svg { position: absolute; left: 14px; top: 50%; translate: 0 -50%; color: var(--text-muted); pointer-events: none; }
 .admin-search .input { padding-left: 42px; }
