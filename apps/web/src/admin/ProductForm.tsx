@@ -15,8 +15,9 @@ const empty: Omit<Product, 'id' | 'created_at'> = {
 
 const CONCENTRATIONS = ['', 'Eau de Parfum', 'Eau de Toilette', 'Parfum', 'Extrait de Parfum', 'Eau de Cologne', 'Aceite de perfume', 'Body mist']
 
-const slugify = (s: string) =>
-  s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+// Mientras se escribe se deja el guion final ("noche-" → "noche-de"); al salir del campo y al guardar se limpia.
+const slugTyping = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-')
+const slugify = (s: string) => slugTyping(s).replace(/^-+|-+$/g, '')
 
 export function ProductForm() {
   const { id } = useParams()
@@ -44,7 +45,7 @@ export function ProductForm() {
     e.preventDefault()
     setError('')
     if (p.price_usd <= 0) return setError('El precio debe ser mayor que 0.')
-    const row = { ...p, slug: p.slug || slugify(p.name) }
+    const row = { ...p, slug: slugify(p.slug) || slugify(p.name) }
     setBusy('Guardando…')
     const { error } = isNew
       ? await supabase!.from('products').insert(row)
@@ -111,7 +112,7 @@ export function ProductForm() {
           <label className="field"><span>Precio USD</span><input className="input" type="number" min={0.01} step="0.01" required value={p.price_usd || ''} onChange={(e) => set('price_usd', Number(e.target.value))} /></label>
           <label className="field"><span>Precio anterior USD</span><input className="input" type="number" min={0} step="0.01" value={p.compare_at_usd ?? ''} onChange={(e) => set('compare_at_usd', e.target.value ? Number(e.target.value) : null)} /><small>Opcional, se muestra tachado.</small></label>
         </div>
-        <label className="field"><span>URL (slug)</span><input className="input" pattern="[a-z0-9-]+" placeholder={slugify(p.name)} value={p.slug} onChange={(e) => set('slug', slugify(e.target.value))} /><small>Se genera del nombre si lo dejas vacío.</small></label>
+        <label className="field"><span>URL (slug)</span><input className="input" pattern="[a-z0-9-]+" placeholder={slugify(p.name)} value={p.slug} onChange={(e) => set('slug', slugTyping(e.target.value))} onBlur={() => set('slug', slugify(p.slug))} /><small>Se genera del nombre si lo dejas vacío.</small></label>
       </fieldset>
 
       <fieldset className="admin-card">
@@ -124,6 +125,7 @@ export function ProductForm() {
 
       <fieldset className="admin-card">
         <legend>Imágenes</legend>
+        <small className="muted">Solo PNG sin fondo. Se reducen a 1200 px al subirlas.</small>
         <div className="admin-images">
           {p.images.map((src, i) => (
             <figure key={src}>
@@ -137,7 +139,7 @@ export function ProductForm() {
           ))}
           <label className="admin-images__add">
             <ImagePlus size={22} /><span>Agregar</span>
-            <input type="file" accept="image/*" multiple className="sr-only" onChange={(e) => onUpload(e.target.files)} />
+            <input type="file" accept="image/png" multiple className="sr-only" onChange={(e) => onUpload(e.target.files)} />
           </label>
         </div>
       </fieldset>

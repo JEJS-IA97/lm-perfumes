@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Minus, Plus, Trash2, X } from 'lucide-react'
-import { useSettings } from '../../api/catalog'
+import { useProducts, useSettings } from '../../api/catalog'
 import { formatUsd, formatVes, toVes } from '../../lib/order'
 import { imageUrl } from '../../lib/supabase'
 import { cartTotal, useCart } from '../../store/cart'
@@ -9,10 +9,16 @@ import './cart.css'
 
 // <dialog> nativo: trae foco atrapado, Escape y fondo inerte sin librerías.
 export function CartDrawer() {
-  const { lines, open, setOpen, setQty, remove } = useCart()
+  const { lines, open, setOpen, setQty, remove, sync } = useCart()
   const { data: settings } = useSettings()
+  const { data: catalog } = useProducts()
   const ref = useRef<HTMLDialogElement>(null)
   const total = cartTotal(lines)
+
+  // El cajón vive en toda la tienda: al cargar el catálogo, el carrito toma los precios actuales.
+  useEffect(() => {
+    if (catalog) sync(catalog)
+  }, [catalog, sync])
 
   useEffect(() => {
     const d = ref.current
