@@ -23,13 +23,13 @@ const schema = z.object({
   delivery: z.enum(DELIVERY),
   payment: z.enum(PAYMENT),
   notes: z.string().trim().max(500),
-})
+}).refine((c) => c.delivery === 'retiro' || c.address.length >= 5, { path: ['address'], message: 'Escribe la dirección de entrega' })
 
 type Errors = Partial<Record<keyof Customer, string>>
 
 export function Checkout() {
   const { lines, clear } = useCart()
-  const { data: settings } = useSettings()
+  const { data: settings, refetch: refetchSettings } = useSettings()
   const [errors, setErrors] = useState<Errors>({})
   const [submitError, setSubmitError] = useState('')
   const [sending, setSending] = useState(false)
@@ -48,7 +48,9 @@ export function Checkout() {
     setSending(true)
     try {
       const receipt = await createOrder(parsed.data, lines)
-      setDone({ receipt, url: whatsappUrl(settings?.whatsapp_number ?? '', buildWhatsAppMessage(receipt, parsed.data)) })
+      // Si los ajustes no habían cargado, se piden otra vez: sin número, wa.me abre WhatsApp sin destinatario.
+      const wa = settings?.whatsapp_number || (await refetchSettings()).data?.whatsapp_number || ''
+      setDone({ receipt, url: wa ? whatsappUrl(wa, buildWhatsAppMessage(receipt, parsed.data)) : '' })
       clear()
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : 'No se pudo registrar el pedido.')
@@ -61,10 +63,16 @@ export function Checkout() {
     return (
       <section className="container section confirm">
         <h1 className="display">Pedido #{done.receipt.number} registrado</h1>
-        <p>Último paso: envíalo por WhatsApp para que lo confirmemos.</p>
-        <a href={done.url} target="_blank" rel="noreferrer" className="btn btn-primary">
-          <MessageCircle size={20} /> Enviar pedido por WhatsApp
-        </a>
+        {done.url ? (
+          <>
+            <p>Último paso: envíalo por WhatsApp para que lo confirmemos.</p>
+            <a href={done.url} target="_blank" rel="noreferrer" className="btn btn-primary">
+              <MessageCircle size={20} /> Enviar pedido por WhatsApp
+            </a>
+          </>
+        ) : (
+          <p>Ya lo recibimos. Te escribiremos por WhatsApp al número que dejaste para confirmarlo.</p>
+        )}
         <p className="muted num">Total {formatUsd(done.receipt.total_usd)} · {formatVes(done.receipt.total_ves)}</p>
       </section>
     )
@@ -95,7 +103,7 @@ export function Checkout() {
           {field('id_doc', 'Cédula (opcional)', { inputMode: 'numeric' })}
         </div>
         {field('city', 'Ciudad', { autoComplete: 'address-level2', required: true })}
-        {field('address', 'Dirección o punto de referencia (opcional)', { autoComplete: 'street-address' })}
+        {field('address', 'Dirección o punto de referencia (obligatoria para delivery y envío)', { autoComplete: 'street-address' })}
 
         <fieldset className="choices">
           <legend>Entrega</legend>

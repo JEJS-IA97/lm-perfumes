@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { ImagePlus, Plus } from 'lucide-react'
 import { imageUrl, supabase } from '../lib/supabase'
 import type { Banner, BannerTone } from '../lib/types'
-import { uploadProductImage } from './image'
+import { uploadBannerImage } from './image'
 import { Select } from '../components/ui/Select'
 
 const blank: Omit<Banner, 'id'> = { title: '', subtitle: '', cta_label: 'Ver más', cta_url: '/', image: '', tone: 'marca', active: true, sort_order: 0 }
@@ -49,7 +49,7 @@ export function BannersPage() {
   async function onImage(file: File | undefined) {
     if (!file || !edit) return
     setBusy(true)
-    try { setEdit({ ...edit, image: await uploadProductImage(file, 'banners') }) }
+    try { setEdit({ ...edit, image: await uploadBannerImage(file) }) }
     catch (err) { setError(err instanceof Error ? err.message : 'Error al subir') }
     setBusy(false)
   }
